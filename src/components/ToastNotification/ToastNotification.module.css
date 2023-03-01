@@ -1,0 +1,30 @@
+.toastNotification {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background-color: crimson;
+  padding: 15px 15px;
+  font-size: 16px;
+  font-weight: 500;
+  border-radius: 5px;
+  animation: fade 3s ease 1 forwards;
+}
+
+@keyframes fade {
+
+  0% {
+    transform: translateX(calc(100% + 20px))
+  }
+
+  15% {
+    transform: translateX(0);
+  }
+
+  85% {
+    transform: translateX(0)
+  }
+
+  100% {
+    transform: translateX(calc(100% + 20px))
+  }
+}
