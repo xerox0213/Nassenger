@@ -45,25 +45,6 @@
   font-size: clamp(20px, 4.3vw, 28px);
 }
 
-.contentText button {
-  display: flex;
-  align-items: center;
-  column-gap: 10px;
-  cursor: pointer;
-  padding: 15px 10px;
-  border-radius: 10px;
-  font-family: inherit;
-  background-color: #f1f1f1;
-  font-size: 18px;
-  transition: background-color 0.4s ease;
-  border: none;
-}
-
-.contentText button:hover {
-  background-color: rgb(201, 197, 197);
-}
-
-
 @media screen and (max-width : 650px) {
   .content {
     flex-direction: column;
@@ -85,10 +66,5 @@
   .contentText h1 {
     max-width: none;
     text-align: center;
-  }
-
-  .contentText button {
-    font-size: 18px;
-    padding: 10px 10px;
   }
 }

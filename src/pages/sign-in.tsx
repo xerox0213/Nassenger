@@ -1,15 +1,16 @@
-import { useContext } from 'react';
-import { FcGoogle } from 'react-icons/fc';
+import { MouseEvent, useContext, useState } from 'react';
 import { BsGithub } from 'react-icons/bs';
 import { Link, Navigate } from 'react-router-dom';
 import Logo from '../assets/nassenger_logo.png';
 import { AuthenticationContext } from '../context/authentication';
 import styles from '../../styles/sign-in.module.css';
 import Preview from '../assets/sign-in_preview.png';
+import SignInBtn from '../components/SignInBtn/SignInBtn';
 
 function SignIn() {
-  const { user, signIn } = useContext(AuthenticationContext);
-  if (!user) {
+  const context = useContext(AuthenticationContext);
+
+  if (!context?.user) {
     return (
       <section>
         <nav className={styles.navbar}>
@@ -34,10 +35,7 @@ function SignIn() {
           </div>
           <div className={styles.contentText}>
             <h1>Pour utiliser l'application, connectez-vous :</h1>
-            <button onClick={signIn}>
-              <FcGoogle style={{ fontSize: 24 }} />
-              Connexion avec Google
-            </button>
+            <SignInBtn />
           </div>
         </div>
       </section>

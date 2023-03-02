@@ -3,14 +3,22 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../redux/store';
 import { useEffect } from 'react';
 
+type DispatchType = {
+  type: 'notification/removeNotification';
+  payload: '';
+};
+
 function ToastNotification() {
   const state = useSelector((state: RootState) => state.notification);
   const dispatch = useDispatch();
+
   useEffect(() => {
     if (state) {
-      console.log('2');
       const removeNotification = () =>
-        dispatch({ type: 'notification/removeNotification', payload: '' });
+        dispatch<DispatchType>({
+          type: 'notification/removeNotification',
+          payload: '',
+        });
       setTimeout(removeNotification, 3000);
     }
   }, [state]);

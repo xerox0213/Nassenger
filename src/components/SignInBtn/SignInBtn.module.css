@@ -1,0 +1,30 @@
+.btn {
+  display: flex;
+  align-items: center;
+  column-gap: 10px;
+  cursor: pointer;
+  padding: 15px 10px;
+  border-radius: 10px;
+  font-family: inherit;
+  background-color: #f1f1f1;
+  font-size: 18px;
+  transition: background-color 0.4s ease;
+  border: none;
+}
+
+.btn:hover {
+  background-color: rgb(201, 197, 197);
+}
+
+
+.btn.blocked {
+  background-color: rgb(201, 197, 197);
+  pointer-events: none;
+}
+
+@media screen and (max-width : 650px) {
+  .btn {
+    font-size: 18px;
+    padding: 10px 10px;
+  }
+}
