@@ -1,0 +1,91 @@
+.profile {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(212, 212, 212, 0.200);
+  border-right: 1px solid rgba(212, 212, 212, 0.200);
+  padding: 0 20px;
+}
+
+.profile a {
+  display: flex;
+  align-items: center;
+  column-gap: 5px;
+  text-decoration: none;
+  color: white;
+  font-family: inherit;
+  font-size: 20px;
+}
+
+.profile a img {
+  width: 42px;
+}
+
+.profilePicture {
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  flex-direction: row-reverse;
+  column-gap: 5px;
+  align-items: center;
+}
+
+.profilePicture img {
+  width: 35px;
+  border-radius: 50%;
+}
+
+.profilePicture .btnOpenModal {
+  width: 35px;
+  height: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  border: none;
+  background-color: #333;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.menu {
+  width: 100px;
+  position: absolute;
+  background-color: #222;
+  border-radius: 5px;
+  border: 1px solid rgba(212, 212, 212, 0.200);
+  top: 100%;
+  z-index: 0;
+}
+
+.menu button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 5px;
+  border: none;
+  background-color: transparent;
+  color: white;
+  cursor: pointer;
+  padding: 10px;
+  width: 100%;
+  font-weight: 400;
+  font-family: inherit;
+  transition: background-color .4s ease;
+  font-size: 15px;
+}
+
+.menu button:nth-child(1) {
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+}
+
+.menu button:nth-child(2) {
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+.menu button:hover {
+  background-color: #444;
+}

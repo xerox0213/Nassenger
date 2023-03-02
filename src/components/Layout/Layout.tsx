@@ -1,4 +1,4 @@
-import App from '../../App';
+import App from '../../pages/app';
 import SignIn from '../../pages/sign-in';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import ToastNotification from '../ToastNotification/ToastNotification';

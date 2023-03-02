@@ -1,0 +1,5 @@
+.conversations {
+  grid-column: 1/2;
+  grid-row: 2/-1;
+  border-right: 1px solid rgba(212, 212, 212, 0.200);
+}

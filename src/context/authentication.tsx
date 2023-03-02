@@ -1,10 +1,6 @@
 import { ReactNode, useEffect, createContext, useState } from 'react';
 import { auth, provider } from '../../firebase-config';
-import {
-  signInWithPopup,
-  GoogleAuthProvider,
-  onAuthStateChanged,
-} from 'firebase/auth';
+import { signInWithPopup, onAuthStateChanged, signOut } from 'firebase/auth';
 import firebase from 'firebase/auth';
 import { useDispatch } from 'react-redux';
 
@@ -12,6 +8,7 @@ type AuthenticationType = {
   user: firebase.User | null;
   signIn: () => void;
   loadingSignIn: boolean;
+  logOut: () => void;
 };
 
 type DispatchType = { type: 'notification/addNotification'; payload: string };
@@ -28,7 +25,7 @@ function AuthenticationContextProvider({ children }: Props) {
   // Etat utilisé par composant SignInBtn pour pouvoir bloquer tout interaction avec lui (empêche le spam)
   const [loadingSignIn, setLoadingSignIn] = useState<boolean>(false);
   // Etata qui permet d'afficher les children uniquement lorsque l'obserateur aura été exécuté au montage (empêche le flash)
-  const [loadData, setLoadData] = useState<boolean>(true);
+  const [loadData, setLoadData] = useState<boolean>(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -57,6 +54,7 @@ function AuthenticationContextProvider({ children }: Props) {
       // Une fois identifié on récupère l'utilisateur
       const user = result.user;
       setUser(user);
+      setLoadingSignIn(false);
     } catch (error) {
       console.log(error);
       dispatch<DispatchType>({
@@ -67,8 +65,20 @@ function AuthenticationContextProvider({ children }: Props) {
     }
   };
 
+  const logOut = async () => {
+    try {
+      await signOut(auth);
+    } catch (error) {
+      dispatch<DispatchType>({
+        type: 'notification/addNotification',
+        payload: "Une erreur s'est produite",
+      });
+    }
+  };
   return (
-    <AuthenticationContext.Provider value={{ user, signIn, loadingSignIn }}>
+    <AuthenticationContext.Provider
+      value={{ user, signIn, loadingSignIn, logOut }}
+    >
       {loadData && children}
     </AuthenticationContext.Provider>
   );
