@@ -61,6 +61,7 @@
 }
 
 .content {
+  position: relative;
   height: 75%;
   overflow-y: auto;
 }
@@ -73,18 +74,6 @@
   padding-right: 10px;
   border-top: 1px solid rgba(212, 212, 212, 0.200);
 }
-
-.footer button {
-  background-color: #444;
-  border: none;
-  padding: 10px;
-  border-radius: 5px;
-  font-family: inherit;
-  font-size: 16px;
-  color: white;
-  cursor: pointer;
-}
-
 @keyframes fade {
   from {
     opacity: 0;

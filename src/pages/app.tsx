@@ -10,13 +10,20 @@ import { Navigate } from 'react-router-dom';
 export type SetModalType = Dispatch<SetStateAction<boolean>>;
 
 function App() {
+  const [menu, setMenu] = useState<boolean>(false);
   const [modal, setModal] = useState<boolean>(false);
   const context = useContext(AuthenticationContext);
+
   if (context?.user) {
     return (
-      <div className={styles.app}>
+      <div
+        onClick={() => {
+          setMenu(false);
+        }}
+        className={styles.app}
+      >
         {modal && <Modal setModal={setModal} />}
-        <Profile setModal={setModal} />
+        <Profile menu={menu} setMenu={setMenu} setModal={setModal} />
         <Conversations />
       </div>
     );

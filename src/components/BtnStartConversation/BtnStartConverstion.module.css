@@ -1,0 +1,21 @@
+.btn {
+  background-color: #444;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  font-family: inherit;
+  font-size: 16px;
+  color: white;
+  cursor: pointer;
+  transition: opacity .4s ease, background-color .4s ease;
+}
+
+.btn:hover {
+  background-color: #555;
+}
+
+.blocked {
+  pointer-events: none;
+  user-select: none;
+  opacity: .5;
+}

@@ -21,7 +21,7 @@
   width: 42px;
 }
 
-.profilePicture {
+.container {
   position: relative;
   cursor: pointer;
   display: flex;
@@ -30,12 +30,12 @@
   align-items: center;
 }
 
-.profilePicture img {
+.picture {
   width: 35px;
   border-radius: 50%;
 }
 
-.profilePicture .btnOpenModal {
+.container .btnOpenModal {
   width: 35px;
   height: 35px;
   display: flex;

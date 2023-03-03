@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { MouseEvent, useContext } from 'react';
 import { AuthenticationContext } from '../../context/authentication';
 import { Link } from 'react-router-dom';
 import Logo from '../../assets/nassenger_logo.png';
@@ -9,10 +9,12 @@ import { BiLogOut } from 'react-icons/bi';
 import { BsPersonFill } from 'react-icons/bs';
 
 type Props = {
+  menu: boolean;
   setModal: SetModalType;
+  setMenu: SetModalType;
 };
 
-function Profile({ setModal }: Props) {
+function Profile({ menu, setMenu, setModal }: Props) {
   const context = useContext(AuthenticationContext);
   const openModal = () => setModal(true);
   return (
@@ -22,29 +24,37 @@ function Profile({ setModal }: Props) {
         Nassenger
       </Link>
 
-      <div className={styles.profilePicture}>
+      <div className={styles.container}>
         <img
+          onClick={(e: MouseEvent) => {
+            e.stopPropagation();
+            setMenu((v) => !v);
+          }}
           src={`${context?.user?.photoURL}`}
           alt='Photo de profil utilisateur '
+          className={styles.picture}
         />
 
-        <div className={styles.menu}>
-          <button>
-            <BsPersonFill />
-            Profil
-          </button>
-          <button
-            onClick={() => {
-              context?.logOut();
-            }}
-          >
-            <BiLogOut />
-            Log Out
-          </button>
-        </div>
         <button className={styles.btnOpenModal} onClick={openModal}>
           <AiFillEdit />
         </button>
+
+        {menu && (
+          <div className={styles.menu}>
+            <button>
+              <BsPersonFill />
+              Profil
+            </button>
+            <button
+              onClick={() => {
+                context?.logOut();
+              }}
+            >
+              <BiLogOut />
+              Log Out
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );
