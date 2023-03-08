@@ -1,0 +1,29 @@
+.content {
+  display: flex;
+  flex-direction: column-reverse;
+  row-gap: 5px;
+  grid-row: 2/3;
+  grid-column: 1/-1;
+  padding: 15px 20px;
+  overflow: auto;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #333;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #444;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}

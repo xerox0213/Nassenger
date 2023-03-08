@@ -1,20 +1,18 @@
 import { MouseEvent, useContext } from 'react';
-import { AuthenticationContext } from '../../context/authentication';
+import { AuthenticationContext } from '../../../context/authentication';
 import { Link } from 'react-router-dom';
-import Logo from '../../assets/nassenger_logo.png';
-import styles from './Profile.module.css';
+import Logo from '../../../assets/nassenger_logo.png';
+import styles from './SidebarContainer.module.css';
 import { AiFillEdit } from 'react-icons/ai';
-import { SetModalType } from '../../pages/app';
-import { BiLogOut } from 'react-icons/bi';
-import { BsPersonFill } from 'react-icons/bs';
-
+import { SetterType } from '../../../pages/app';
+import Menu from '../Menu/Menu';
 type Props = {
   menu: boolean;
-  setModal: SetModalType;
-  setMenu: SetModalType;
+  setModal: SetterType<boolean>;
+  setMenu: SetterType<boolean>;
 };
 
-function Profile({ menu, setMenu, setModal }: Props) {
+function Sidebar({ menu, setMenu, setModal }: Props) {
   const context = useContext(AuthenticationContext);
   const openModal = () => setModal(true);
   return (
@@ -39,25 +37,10 @@ function Profile({ menu, setMenu, setModal }: Props) {
           <AiFillEdit />
         </button>
 
-        {menu && (
-          <div className={styles.menu}>
-            <button>
-              <BsPersonFill />
-              Profil
-            </button>
-            <button
-              onClick={() => {
-                context?.logOut();
-              }}
-            >
-              <BiLogOut />
-              Log Out
-            </button>
-          </div>
-        )}
+        {menu && <Menu />}
       </div>
     </div>
   );
 }
 
-export default Profile;
+export default Sidebar;

@@ -1,0 +1,7 @@
+.leftMessage {
+  background-color: crimson;
+  color: white;
+  padding: 15px 10px;
+  align-self: flex-start;
+  border-radius: 10px;
+}

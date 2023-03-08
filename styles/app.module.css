@@ -2,5 +2,12 @@
   height: 100vh;
   display: grid;
   grid-template-columns: 300px 1fr;
-  grid-template-rows: 100px 1fr;
+  grid-template-rows: 80px 1fr;
+}
+
+.alert {
+  grid-column: 2/-1;
+  grid-row: 1/-1;
+  justify-self: center;
+  align-self: center;
 }

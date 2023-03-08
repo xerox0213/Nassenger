@@ -8,6 +8,9 @@
   color: white;
   cursor: pointer;
   transition: opacity .4s ease, background-color .4s ease;
+  position: relative;
+  min-width: 250px;
+  min-height: 50px;
 }
 
 .btn:hover {

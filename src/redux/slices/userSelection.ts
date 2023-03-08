@@ -24,6 +24,11 @@ const userSelectionSlice = createSlice({
       state = state.filter((elem) => elem !== uid);
       return state;
     },
+
+    emptyUserSelection: (state) => {
+      state = [];
+      return state;
+    },
   },
 });
 

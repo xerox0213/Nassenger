@@ -1,0 +1,7 @@
+.rightMessage {
+  background-color: #007ad8;
+  color: white;
+  padding: 15px 10px;
+  align-self: flex-end;
+  border-radius: 10px;
+}

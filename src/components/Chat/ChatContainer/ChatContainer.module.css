@@ -1,0 +1,15 @@
+.tchat {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 80px 1fr 70px;
+  grid-column: 2/3;
+  grid-row: 1/-1;
+}
+
+.tchat p {
+  grid-column: 1/-1;
+  grid-row: 1/-1;
+  justify-self: center;
+  align-self: center;
+}

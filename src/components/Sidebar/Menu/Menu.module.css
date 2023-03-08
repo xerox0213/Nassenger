@@ -1,0 +1,40 @@
+.menu {
+  width: max-content;
+  position: absolute;
+  background-color: #222;
+  border-radius: 5px;
+  border: 1px solid rgba(212, 212, 212, 0.200);
+  top: 100%;
+  z-index: 1;
+}
+
+.menu button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 5px;
+  border: none;
+  background-color: transparent;
+  color: white;
+  cursor: pointer;
+  padding: 10px;
+  width: 100%;
+  font-weight: 400;
+  font-family: inherit;
+  transition: background-color .4s ease;
+  font-size: 15px;
+}
+
+.menu button:nth-child(1) {
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+}
+
+.menu button:nth-child(2) {
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+.menu button:hover {
+  background-color: #444;
+}

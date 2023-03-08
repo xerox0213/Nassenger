@@ -5,8 +5,15 @@ import firebase from 'firebase/auth';
 import { useDispatch } from 'react-redux';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 
-type AuthenticationType = {
-  user: firebase.User | null;
+type AuthenticationType<T> = {
+  user: T | firebase.User;
+  signIn: () => void;
+  loadingSignIn: boolean;
+  logOut: () => void;
+};
+
+export type AuthenticationTypeApp = {
+  user: firebase.User;
   signIn: () => void;
   loadingSignIn: boolean;
   logOut: () => void;
@@ -18,7 +25,12 @@ type Props = {
   children: ReactNode;
 };
 
-const AuthenticationContext = createContext<AuthenticationType | null>(null);
+const AuthenticationContext = createContext<AuthenticationType<null>>({
+  user: null,
+  signIn: () => {},
+  logOut: () => {},
+  loadingSignIn: false,
+});
 
 function AuthenticationContextProvider({ children }: Props) {
   // Etat qui stocke les information de l'utilisateur connecté
@@ -31,7 +43,6 @@ function AuthenticationContextProvider({ children }: Props) {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
-      console.log(user);
       if (user) {
         setUser(user);
       } else {
