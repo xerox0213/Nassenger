@@ -35,7 +35,9 @@ function App() {
   if (context?.user) {
     return (
       <div className={styles.app}>
-        {modal && <Modal setModal={setModal} />}
+        {modal && (
+          <Modal setSelectedConversationID={setSelectedConversationID} setModal={setModal} />
+        )}
         <SidebarContainer menu={menu} setMenu={setMenu} setModal={setModal} />
         <ConversationsContainer
           conversations={conversations}
@@ -45,6 +47,7 @@ function App() {
         />
         {selectedConversation ? (
           <ChatContainer
+            selectedConversationID={selectedConversationID}
             selectedConversation={selectedConversation}
             setConversations={setConversations}
           />

@@ -18,8 +18,6 @@ function ConversationItem({
   setSelectedConversationID,
   setConversations,
   selectedConversationID,
-  setActiveConversation,
-  activeConversation,
 }: Props) {
   const [seen, setSeen] = useObserveConversation(
     conversation,
@@ -45,11 +43,10 @@ function ConversationItem({
     <div
       onClick={() => {
         setSeen(true);
-        setActiveConversation(conversation.id);
         setSelectedConversationID(conversation.id);
       }}
       className={
-        seen && activeConversation !== conversation.id
+        seen && selectedConversationID !== conversation.id
           ? styles.conversationItem
           : `${styles.conversationItem} ${styles.active}`
       }

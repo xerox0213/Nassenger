@@ -1,34 +1,26 @@
 import styles from './UserItem.module.css';
 import { useRef, useState } from 'react';
-import { Dispatch, SetStateAction } from 'react';
 import { useDispatch } from 'react-redux';
+import { SetterType } from '../../../pages/app';
 
 type Props = {
   fullName: string;
   pictureProfile: string;
   uid: string;
+  setUserSelected: SetterType<string | null>;
 };
 
-function UserItem({ fullName, pictureProfile, uid }: Props) {
+function UserItem({ fullName, pictureProfile, uid, setUserSelected }: Props) {
   const [isSelected, setIsSelected] = useState<boolean>(false);
   const ref = useRef<HTMLInputElement>(null);
-  const dispatch = useDispatch();
-
   const handleClick = () => {
     const input = ref.current as HTMLInputElement;
     const checked = input.checked;
     input.checked = !checked;
-    console.log();
     if (!checked) {
-      dispatch({
-        type: 'userSelection/addUser',
-        payload: uid,
-      });
+      setUserSelected(uid);
     } else {
-      dispatch({
-        type: 'userSelection/removeUser',
-        payload: uid,
-      });
+      setUserSelected(null);
     }
     setIsSelected(!checked);
   };

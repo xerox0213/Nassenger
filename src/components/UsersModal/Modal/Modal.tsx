@@ -1,17 +1,18 @@
 import styles from './Modal.module.css';
 import { IoMdClose } from 'react-icons/io';
-import { SetModalType } from '../../../pages/app';
+import { SetModalType, SetterType } from '../../../pages/app';
 import UserItem from '../UserItem/UserItem';
 import { db } from '../../../../firebase-config';
 import { collection, getDocs, query, where } from 'firebase/firestore';
 import { useQuery } from '@tanstack/react-query';
 import Loader from '../../Loader/Loader';
 import BtnStartConversation from '../BtnStartConversation/BtnStartConversation';
-import { AuthenticationContext } from '../../../context/authentication';
-import { useContext } from 'react';
+import { AuthenticationContext, AuthenticationTypeApp } from '../../../context/authentication';
+import { useContext, useState } from 'react';
 
 type Props = {
   setModal: SetModalType;
+  setSelectedConversationID: SetterType<string>;
 };
 
 async function getUsers(uid: any) {
@@ -20,11 +21,12 @@ async function getUsers(uid: any) {
   return querySnapshot.docs;
 }
 
-function Modal({ setModal }: Props) {
-  const context = useContext(AuthenticationContext);
+function Modal({ setModal, setSelectedConversationID }: Props) {
+  const [userSelected, setUserSelected] = useState<string | null>(null);
+  const context = useContext(AuthenticationContext) as AuthenticationTypeApp;
   const { data, isLoading, isError } = useQuery({
     queryKey: ['users'],
-    queryFn: () => getUsers(context?.user.uid),
+    queryFn: () => getUsers(context.user.uid),
     refetchOnWindowFocus: false,
   });
 
@@ -47,13 +49,23 @@ function Modal({ setModal }: Props) {
             data?.map((doc) => {
               const { fullName, pictureProfile, uid } = doc.data();
               return (
-                <UserItem key={uid} fullName={fullName} uid={uid} pictureProfile={pictureProfile} />
+                <UserItem
+                  key={uid}
+                  setUserSelected={setUserSelected}
+                  fullName={fullName}
+                  uid={uid}
+                  pictureProfile={pictureProfile}
+                />
               );
             })
           )}
         </div>
         <div className={styles.footer}>
-          <BtnStartConversation closeModal={closeModal} />
+          <BtnStartConversation
+            userSelected={userSelected as string}
+            setSelectedConversationID={setSelectedConversationID as SetterType<string>}
+            closeModal={closeModal}
+          />
         </div>
       </div>
     </div>

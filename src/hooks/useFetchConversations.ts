@@ -20,10 +20,14 @@ function useFetchConversations(setConversations: Param): boolean {
         const userData = doc.data() as User;
         const IDs: string[] = userData.conversations;
         if (IDs.length !== 0) {
-          const allConversations = await getConversations(IDs, context.user.uid);
+          let allConversations = await getConversations(IDs, context.user.uid);
           // On trie les conversations en fonction de l'heure à laquelle a été envoyé le dernier message
           allConversations.sort((a, b) => {
-            return b.messages[0].timestamp - a.messages[0].timestamp;
+            if (a.messages.length && b.messages.length) {
+              return b.messages[0].timestamp - a.messages[0].timestamp;
+            } else {
+              return 0;
+            }
           });
           setIsLoading(false);
           setConversations(allConversations);

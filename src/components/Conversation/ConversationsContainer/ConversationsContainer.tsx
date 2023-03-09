@@ -19,7 +19,6 @@ function ConversationsContainer({
   setSelectedConversationID,
   selectedConversationID,
 }: Props) {
-  const [activeConversation, setActiveConversation] = useState<string | null>(null);
   const isLoading = useFetchConversations(setConversations);
   return (
     <div className={styles.conversations}>
@@ -33,8 +32,6 @@ function ConversationsContainer({
             setSelectedConversationID={setSelectedConversationID as SetterType<string>}
             setConversations={setConversations}
             selectedConversationID={selectedConversationID as string}
-            activeConversation={activeConversation as string}
-            setActiveConversation={setActiveConversation as SetterType<string>}
           />
         ))
       )}

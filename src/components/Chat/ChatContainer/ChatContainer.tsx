@@ -9,13 +9,18 @@ import { SetterType } from '../../../pages/app';
 type Props = {
   selectedConversation: Conversation;
   setConversations: SetterType<Conversation[]>;
+  selectedConversationID: string;
 };
 
-function ChatContainer({ selectedConversation, setConversations }: Props) {
+function ChatContainer({ selectedConversation, setConversations, selectedConversationID }: Props) {
   return (
-    <div className={styles.tchat}>
+    <div className={styles.chat}>
       <ChatHeader recipientData={selectedConversation.recipientData} />
-      <ChatContent messages={selectedConversation.messages} />
+      <ChatContent
+        key={selectedConversationID}
+        setConversations={setConversations}
+        selectedConversation={selectedConversation}
+      />
       <Input setConversations={setConversations} id={selectedConversation.id} />
     </div>
   );

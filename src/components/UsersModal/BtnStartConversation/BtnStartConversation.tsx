@@ -17,16 +17,17 @@ import { db } from '../../../../firebase-config';
 import { useState } from 'react';
 import Loader from '../../Loader/Loader';
 import { AuthenticationTypeApp } from '../../../context/authentication';
+import { SetterType } from '../../../pages/app';
 
 type Props = {
   closeModal: () => void;
+  setSelectedConversationID: SetterType<string>;
+  userSelected: string;
 };
 
-function BtnStartConversation({ closeModal }: Props) {
+function BtnStartConversation({ closeModal, setSelectedConversationID, userSelected }: Props) {
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const userSelection = useSelector((state: RootState) => state.userSelection);
   const context = useContext(AuthenticationContext) as AuthenticationTypeApp;
-  const dispatch = useDispatch();
 
   const handleClick = async () => {
     // 1) Récupérer le uid du destinataire (se trouve dans le state redux)
@@ -35,7 +36,7 @@ function BtnStartConversation({ closeModal }: Props) {
     try {
       setIsLoading(true);
       const uidSender: string = context.user.uid;
-      const uidRecipients = userSelection;
+      const uidRecipients = [userSelected];
       for (let i = 0; i < uidRecipients.length; i++) {
         const uidRecipient = uidRecipients[i];
         const idConversation = await createConversation([uidSender, uidRecipient]);
@@ -43,9 +44,6 @@ function BtnStartConversation({ closeModal }: Props) {
       }
       setIsLoading(false);
       closeModal();
-      dispatch({
-        type: 'userSelection/emptyUserSelection',
-      });
     } catch (error) {
       console.log(error);
     }
@@ -54,16 +52,20 @@ function BtnStartConversation({ closeModal }: Props) {
   const createConversation = async (users: string[]) => {
     try {
       // On regarde d'abord si une conversation n'a pas déjà été créé
-      const alreadyAdded = await checkConvAlreadyExists(users);
-      if (alreadyAdded) {
+      const { status, id } = await checkConvAlreadyExists(users);
+      if (status) {
+        console.log(id);
+        setSelectedConversationID(id);
+        closeModal();
         return Promise.reject(new Error('Erreur -> Conversation déjà créé'));
+      } else {
+        const docRef = await addDoc(collection(db, 'conversations'), {
+          messages: [],
+          users,
+        });
+        const idConversation = docRef.id;
+        return idConversation;
       }
-      const docRef = await addDoc(collection(db, 'conversations'), {
-        messages: [],
-        users,
-      });
-      const idConversation = docRef.id;
-      return idConversation;
     } catch (error) {
       return Promise.reject(new Error('Erreur -> Création de la conversation'));
     }
@@ -94,16 +96,17 @@ function BtnStartConversation({ closeModal }: Props) {
     const q = query(collection(db, 'conversations'), where('users', '==', users));
     const querySnapshot = await getDocs(q);
     if (!querySnapshot.docs.length) {
-      return false;
+      return { status: false, id: null };
     } else {
-      return true;
+      console.log(querySnapshot.docs);
+      return { status: true, id: querySnapshot.docs[0].id };
     }
   };
 
   return (
     <button
       onClick={handleClick}
-      className={userSelection.length ? `${styles.btn}` : `${styles.btn} ${styles.blocked}`}
+      className={userSelected ? `${styles.btn}` : `${styles.btn} ${styles.blocked}`}
     >
       {isLoading ? <Loader /> : 'Commencer une conversation'}
     </button>

@@ -1,12 +1,21 @@
-.content {
+.content.columnReverse {
   display: flex;
   flex-direction: column-reverse;
   row-gap: 5px;
-  grid-row: 2/3;
-  grid-column: 1/-1;
-  padding: 15px 20px;
   overflow: auto;
 }
+
+.content {
+  padding: 15px 20px;
+  grid-row: 2/3;
+  grid-column: 1/-1;
+}
+
+.info {
+  color: gray;
+  text-align: center;
+}
+
 
 /* width */
 ::-webkit-scrollbar {
